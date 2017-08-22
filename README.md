@@ -29,26 +29,19 @@ Contentful's search is good, but not optimised for text content. You might want 
 
 >   Get our content from Contentful
 
-Use Contentful Sync API to keep a local copy of our content in Redis. because we need all/most of our content for indexing, Redis should be faster than the Content Delivery API.	
+Use the Contentful Sync API to keep a local copy of our content in Redis - because we need all/most of our content for indexing, Redis should be faster than the Content Delivery API.
 
-We re-index all our content regularly via a cron job, and keep the index up to date via Contentful webhooks in between.
-
-##### Default updates:
-
--   Cron job runs every 60 mins
--   Webhooks trigger an update when an entry is published, unpublished, or deleted
 
 ### 2. Transform
 
 >   Transform Contentful data ready for indexing, then store it in Redis in batches.
 
-Here we remap Contentful fields (e.g. dereferencing, de-localising, and stripping out extraneous info), and reformat some data, for example converting markdown to plain text. 
+Here we remap Contentful fields (e.g. dereferencing, de-localising, and stripping out extraneous info), and reformat some data, for example converting markdown to plain text.
 
 ##### Default transformations:
 
 -   Contentful entry title is always mapped to a field called 'title' (unless there is a field named 'title')
 -   Long text fields have their formatting stripped in case they are markdown.([https://github.com/etler/marked-plaintext](https://github.com/etler/marked-plaintext))
-
 
 
 ### 3. Index
@@ -63,10 +56,9 @@ At this step the transformed data is passed through our analysis chain.
 -   Long text fields are also put through an english analyser
 
 
-
 ### 4. Query
 
->   Search our Elasticsearch index! 
+>   Search our Elasticsearch index!
 
 #### Main query
 
@@ -88,7 +80,14 @@ Also get back highlighted text snippets with your search results, showing where 
 TODO: Explore Universal highlighter in latest versions of ES
 
 
+### 5. Keep up to date
 
+We re-index all our content regularly via a cron job, and keep the index up to date via Contentful webhooks in between.
+
+##### Default updates:
+
+-   Cron job runs every 60 mins
+-   Webhooks trigger an update when an entry is published, unpublished, or deleted
 
 
 # Setup
@@ -107,7 +106,8 @@ TODO: Explore Universal highlighter in latest versions of ES
 | ES_PASSWORD         | Elasticsearch password      | `none`                 |
 |                     |                             |                        |
 | REDIS_URL           | Redis URL                   | redis://localhost:6379 |
-| REDIS_PASSWORD      | Redis password              | `none`                 |
+|                     |                             |                        |
+| DEBUG               | See the [debug module](https://www.npmjs.com/package/debug) |                |
 
 
 
@@ -128,7 +128,7 @@ TODO: Explore Universal highlighter in latest versions of ES
 
 
 
-### Optional extensibility 
+### Optional extensibility
 
 -   Create a new transformation e.g. markdownToPlainText()
 -   Create a new analyser e.g. edge-ngram for instant search
