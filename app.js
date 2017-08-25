@@ -13,7 +13,10 @@ const getAndResolveEntries = () => {
   cf
     .getEntries()
     // have to use anonymous func here instead of .then(resolve) or 'this' class scope gets lost
-    .then(entries => cf.resolveReferences(entries))
+    .then(entries => {
+      console.log(JSON.stringify(entries, null, 2))
+      return cf.resolveReferences(entries)
+    })
     .then(entries => {
       console.log(JSON.stringify(entries, null, 2))
     })

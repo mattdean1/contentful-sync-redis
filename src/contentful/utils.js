@@ -1,4 +1,4 @@
-const debug = require(`debug`)(`contentful-text-search:contentful`)
+const debug = require(`debug`)(`contentful-sync-redis:contentful`)
 
 // Recursive func used to resolve links
 exports.resolve = (content, entriesMap) => {

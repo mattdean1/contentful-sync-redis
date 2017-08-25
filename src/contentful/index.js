@@ -1,4 +1,4 @@
-const debug = require(`debug`)(`contentful-text-search:contentful`)
+const debug = require(`debug`)(`contentful-sync-redis:contentful`)
 const { createClient } = require(`contentful`)
 
 const db = require(`../redis`)

@@ -1,4 +1,4 @@
-const debug = require(`debug`)(`contentful-text-search:redis`)
+const debug = require(`debug`)(`contentful-sync-redis:redis`)
 const client = require(`./redis-client`)
 
 /*

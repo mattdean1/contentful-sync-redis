@@ -1,27 +1,26 @@
 {
-  "name": "contentful-text-search",
+  "name": "contentful-sync-redis",
   "version": "0.0.0",
-  "description": "Powerful, configurable, and extensible text search for your content",
+  "description": "Keep an up-to-date copy of your Contentful space in Redis",
   "main": "app.js",
   "scripts": {
-    "start": "DEBUG=contentful-text-search:* node app.js",
+    "start": "DEBUG=contentful-sync-redis:* node app.js",
     "test": "echo \"Should probably write some tests!\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattdean1/contentful-text-search.git"
+    "url": "git+https://github.com/mattdean1/contentful-sync-redis.git"
   },
   "keywords": [
-    "elasticsearch",
     "contentful",
     "redis"
   ],
   "author": "Matt Dean",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattdean1/contentful-text-search/issues"
+    "url": "https://github.com/mattdean1/contentful-sync-redis/issues"
   },
-  "homepage": "https://github.com/mattdean1/contentful-text-search#readme",
+  "homepage": "https://github.com/mattdean1/contentful-sync-redis#readme",
   "devDependencies": {
     "eslint": "^4.5.0",
     "prettier": "^1.5.3"
@@ -32,7 +31,6 @@
     "contentful": "^4.6.1",
     "debug": "^3.0.1",
     "dotenv": "^4.0.0",
-    "elasticsearch": "^13.3.1",
     "redis": "^2.8.0"
   }
 }
