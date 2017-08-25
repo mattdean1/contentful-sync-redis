@@ -10,9 +10,24 @@ It keeps a copy of your Contentful space in Redis, using the [Contentful Sync AP
 
 The Contentful JS SDK is a only thin wrapper on top of their API, and it can be tedious to [implement the Sync API](https://www.contentful.com/developers/docs/javascript/tutorials/using-the-sync-api-with-js/) in every project.
 
+# Setup
+
+### Installation
+
+```
+npm install --save contentful-sync-redis
+```
+
+###  Environment variables
+
+| Name      | Value                                    | Default                |
+| --------- | ---------------------------------------- | ---------------------- |
+| REDIS_URL | Redis URL                                | redis://localhost:6379 |
+|           |                                          |                        |
+| DEBUG     | See the [debug module](https://www.npmjs.com/package/debug) |                        |
 
 
-# Functionality
+# Usage
 
 ### Initialisation
 
@@ -82,7 +97,7 @@ cf.resolveReferences([
 ])
 ```
 Returns a Promise which resolves to:
-```    
+```JSON    
 {
     "sys": { ... },
     "fields": {
@@ -125,33 +140,25 @@ Where 'sections' is a multi-reference field
 
 
 
-
-
-
-
-# Setup
-
-###  Environment variables
-
-| Name      | Value                                    | Default                |
-| --------- | ---------------------------------------- | ---------------------- |
-| REDIS_URL | Redis URL                                | redis://localhost:6379 |
-|           |                                          |                        |
-| DEBUG     | See the [debug module](https://www.npmjs.com/package/debug) |                        |
-
-
-
-
 # Release Map
 
-### MVP - 1.0
+### MVP - 0.1
 
 - Implement Sync API
-- Tests
 - `resolveReferences` helper function
 - Preview API supported
 
-### Later releases / To Do
+### 0.2
+
+- Tests using Mocha/Chai
+- CI integration using Travis
+- Contributing guidelines / Code of Conduct etc.
+
+### 1.0
+
+- Support old versions of Node using webpack
+
+### Later releases / To do
 
 - Plugin functionality to allow for other databases
 - Support filtering content
