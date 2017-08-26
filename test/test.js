@@ -1,6 +1,6 @@
 const assert = require(`assert`) // node.js core module
 
-const ClassInstance = require(`../index`)
+const ClassInstance = require(`../`)
 const contentfulUtils = require(`../src/contentful-utils`)
 const resolveTestData = require(`./resolve-test-data`)
 

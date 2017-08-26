@@ -1,8 +1,8 @@
 const debug = require(`debug`)(`contentful-sync-redis:contentful`)
 const { createClient } = require(`contentful`)
 
-const db = require(`./src/redis`)
-const { resolve, createEntriesMap } = require(`./src/contentful-utils`)
+const db = require(`./redis`)
+const { resolve, createEntriesMap } = require(`./contentful-utils`)
 
 module.exports = class Contentful {
   constructor(space, accessToken, host) {
