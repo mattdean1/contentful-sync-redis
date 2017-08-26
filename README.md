@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mattdean1/contentful-sync-redis.svg?branch=master)](https://travis-ci.org/mattdean1/contentful-sync-redis)
+
 # contentful-sync-redis
 
 > Keep an up-to-date copy of your Contentful space in Redis
