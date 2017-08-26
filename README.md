@@ -146,19 +146,19 @@ Where 'sections' is a multi-reference field
 
 ### MVP - 0.1
 
-[x] Implement Sync API
-[x] `resolveReferences` helper function
-[x] Preview API supported
+ - [x] Implement Sync API
+ - [x] `resolveReferences` helper function
+ - [x] Preview API supported
 
 ### 0.2
 
-[x] Tests using Mocha
-[x] CI integration using Travis
-[x] Contribution guidelines
+ - [x] Tests using Mocha
+ - [x] CI integration using Travis
+ - [x] Contribution guidelines
 
 ### 1.0
 
-- Support old versions of Node using webpack
+- [ ] Support old versions of Node using webpack
 
 ### Later releases / To do
 
