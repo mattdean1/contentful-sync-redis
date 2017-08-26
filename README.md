@@ -146,15 +146,15 @@ Where 'sections' is a multi-reference field
 
 ### MVP - 0.1
 
-- Implement Sync API
-- `resolveReferences` helper function
-- Preview API supported
+[x] Implement Sync API
+[x] `resolveReferences` helper function
+[x] Preview API supported
 
 ### 0.2
 
-- Tests using Mocha/Chai
-- CI integration using Travis
-- Contributing guidelines / Code of Conduct etc.
+[x] Tests using Mocha
+[x] CI integration using Travis
+[x] Contribution guidelines
 
 ### 1.0
 
@@ -165,3 +165,7 @@ Where 'sections' is a multi-reference field
 - Plugin functionality to allow for other databases
 - Support filtering content
 - Support assets
+
+# Contributions
+
+All contributions welcome! Please feel free to open an issue/PR :smile:
