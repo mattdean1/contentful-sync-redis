@@ -2,10 +2,12 @@
   "name": "contentful-sync-redis",
   "version": "0.1.1",
   "description": "Keep an up-to-date copy of your Contentful space in Redis",
-  "engines": { "node": ">=8.0.0" },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Should probably write some tests!\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   "homepage": "https://github.com/mattdean1/contentful-sync-redis#readme",
   "devDependencies": {
     "eslint": "^4.5.0",
+    "mocha": "^3.5.0",
     "prettier": "^1.5.3"
   },
   "dependencies": {

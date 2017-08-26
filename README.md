@@ -97,7 +97,7 @@ cf.resolveReferences([
 ])
 ```
 Returns a Promise which resolves to:
-```JSON    
+```   
 {
     "sys": { ... },
     "fields": {
