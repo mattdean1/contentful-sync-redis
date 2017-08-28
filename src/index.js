@@ -79,6 +79,7 @@ module.exports = class Contentful {
         content: stringifiedContent,
         resolved: resolvedEntries,
       }
+      debug(`Returning resolved entries`)
       return resolvedEntries
     } catch (err) {
       debug(`Failed resolving references for entries: %O`, entries)
