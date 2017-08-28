@@ -13,7 +13,10 @@
     "type": "git",
     "url": "git+https://github.com/mattdean1/contentful-sync-redis.git"
   },
-  "keywords": ["contentful", "redis"],
+  "keywords": [
+    "contentful",
+    "redis"
+  ],
   "author": "Matt Dean",
   "license": "MIT",
   "bugs": {

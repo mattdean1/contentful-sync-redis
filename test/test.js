@@ -35,10 +35,11 @@ describe(`Package`, () => {
       )
     })
     it(`should resolve test data correctly`, () => {
-      assert.deepEqual(
-        contentfulUtils.resolve(resolveTestData.raw, resolveTestData.mapped),
-        resolveTestData.resolved
+      const resolvedData = contentfulUtils.resolve(
+        resolveTestData.raw,
+        resolveTestData.mapped
       )
+      assert.deepEqual(resolvedData, resolveTestData.resolved)
     })
   })
 })

@@ -484,11 +484,9 @@ exports.resolved = [
       },
     },
     fields: {
-      title: {
-        "en-US": `About us`,
-      },
-      content: {
-        "en-US": `Made by Matt Dean and Sam Stenton`,
+      "en-US": {
+        title: `About us`,
+        content: `Made by Matt Dean and Sam Stenton`,
       },
     },
   },
@@ -515,17 +513,11 @@ exports.resolved = [
       },
     },
     fields: {
-      title: {
-        "en-US": `Home`,
-      },
-      summary: {
-        "en-US": `This is the homepage, it talks about the site `,
-      },
-      slug: {
-        "en-US": `home`,
-      },
-      sections: {
-        "en-US": [
+      "en-US": {
+        title: `Home`,
+        summary: `This is the homepage, it talks about the site `,
+        slug: `home`,
+        sections: [
           {
             sys: {
               space: {
@@ -549,11 +541,9 @@ exports.resolved = [
               },
             },
             fields: {
-              title: {
-                "en-US": `About us`,
-              },
-              content: {
-                "en-US": `Made by Matt Dean and Sam Stenton`,
+              "en-US": {
+                title: `About us`,
+                content: `Made by Matt Dean and Sam Stenton`,
               },
             },
           },
@@ -580,11 +570,9 @@ exports.resolved = [
               },
             },
             fields: {
-              title: {
-                "en-US": `Introduction`,
-              },
-              content: {
-                "en-US": `Hi this is the search accelerator`,
+              "en-US": {
+                title: `Introduction`,
+                content: `Hi this is the search accelerator`,
               },
             },
           },
@@ -615,11 +603,9 @@ exports.resolved = [
       },
     },
     fields: {
-      title: {
-        "en-US": `Introduction`,
-      },
-      content: {
-        "en-US": `Hi this is the search accelerator`,
+      "en-US": {
+        title: `Introduction`,
+        content: `Hi this is the search accelerator`,
       },
     },
   },
@@ -646,11 +632,9 @@ exports.resolved = [
       },
     },
     fields: {
-      title: {
-        "en-US": `Salesforce`,
-      },
-      content: {
-        "en-US": `Wilson ching holds the API key`,
+      "en-US": {
+        title: `Salesforce`,
+        content: `Wilson ching holds the API key`,
       },
     },
   },
@@ -677,17 +661,11 @@ exports.resolved = [
       },
     },
     fields: {
-      title: {
-        "en-US": `Docs`,
-      },
-      summary: {
-        "en-US": `This contains some developer documentation`,
-      },
-      slug: {
-        "en-US": `docs`,
-      },
-      sections: {
-        "en-US": [
+      "en-US": {
+        title: `Docs`,
+        summary: `This contains some developer documentation`,
+        slug: `docs`,
+        sections: [
           {
             sys: {
               space: {
@@ -711,11 +689,9 @@ exports.resolved = [
               },
             },
             fields: {
-              title: {
-                "en-US": `Heroku Standards`,
-              },
-              content: {
-                "en-US": `Hi my name is Nick and I love Heroku!`,
+              "en-US": {
+                title: `Heroku Standards`,
+                content: `Hi my name is Nick and I love Heroku!`,
               },
             },
           },
@@ -742,11 +718,9 @@ exports.resolved = [
               },
             },
             fields: {
-              title: {
-                "en-US": `Salesforce`,
-              },
-              content: {
-                "en-US": `Wilson ching holds the API key`,
+              "en-US": {
+                title: `Salesforce`,
+                content: `Wilson ching holds the API key`,
               },
             },
           },
@@ -777,11 +751,9 @@ exports.resolved = [
       },
     },
     fields: {
-      title: {
-        "en-US": `Heroku Standards`,
-      },
-      content: {
-        "en-US": `Hi my name is Nick and I love Heroku!`,
+      "en-US": {
+        title: `Heroku Standards`,
+        content: `Hi my name is Nick and I love Heroku!`,
       },
     },
   },
