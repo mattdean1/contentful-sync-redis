@@ -1,6 +1,6 @@
 {
   "name": "contentful-sync-redis",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Keep an up-to-date copy of your Contentful space in Redis",
   "engines": {
     "node": ">=8.0.0"

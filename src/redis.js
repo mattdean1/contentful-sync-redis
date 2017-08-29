@@ -2,12 +2,13 @@ const debug = require(`debug`)(`contentful-sync-redis:redis`)
 const redis = require(`redis`)
 const bluebird = require(`bluebird`)
 
+//Promisify Redis operations so now we can e.g. await client.getAsync
+bluebird.promisifyAll(redis.RedisClient.prototype)
+
 exports.createClient = url => new Redis(url)
 
 class Redis {
   constructor(url) {
-    //Promisify Redis operations so now we can e.g. await client.getAsync
-    bluebird.promisifyAll(redis.RedisClient.prototype)
     this.client = redis.createClient(url || `redis://localhost:6379`)
     this.client.on(`error`, function(err) {
       debug(err)
@@ -58,6 +59,7 @@ class Redis {
       return await Promise.all(entries.map(this.storeEntry))
     } catch (err) {
       debug(`Error storing entries: %O`, entries)
+      throw new Error(err)
     }
   }
   async removeEntries(entries) {
@@ -66,6 +68,7 @@ class Redis {
       return await Promise.all(entries.map(this.removeEntry))
     } catch (err) {
       debug(`Error removing entries: %O`, entries)
+      throw new Error(err)
     }
   }
 }
