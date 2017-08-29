@@ -6,9 +6,12 @@ const { resolve, createEntriesMap } = require(`./contentful-utils`)
 
 module.exports = class ContentfulSyncRedis {
   constructor({ space, token, contentfulHost, redisHost }) {
+    if (!space || !token) {
+      throw new Error(`'space' and 'token' parameters are required`)
+    }
     this.client = createContentfulClient({
       space,
-      token,
+      accessToken: token,
       resolveLinks: false,
       host: contentfulHost || `cdn.contentful.com`,
     })
