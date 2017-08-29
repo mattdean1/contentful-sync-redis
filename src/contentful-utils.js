@@ -1,7 +1,7 @@
 const debug = require(`debug`)(`contentful-sync-redis:contentful`)
 
 // create an object with content ID as keys
-exports.createEntriesMap = entries => {
+const createEntriesMap = entries => {
   try {
     return entries.reduce(
       (accu, entry) => Object.assign(accu, { [entry.sys.id]: entry }),
@@ -13,11 +13,11 @@ exports.createEntriesMap = entries => {
 }
 
 // Recursive func used to resolve links
-exports.resolve = (content, entriesMap) => {
+const resolve = (content, entriesMap) => {
   try {
     // content is an array
     if (Array.isArray(content)) {
-      return content.map(x => this.resolve(x, entriesMap))
+      return content.map(x => resolve(x, entriesMap))
     }
     // content is an entry with fields
     if (content.sys && content.sys.type === `Entry`) {
@@ -33,11 +33,12 @@ exports.resolve = (content, entriesMap) => {
       content.sys.type === `Link` &&
       content.sys.linkType === `Entry`
     ) {
-      return this.resolve(entriesMap[content.sys.id], entriesMap)
+      return resolve(entriesMap[content.sys.id], entriesMap)
     }
     // content is a value
     return content
   } catch (err) {
+    debug(`Error resolving: %s`, err)
     debug(`Could not resolve content: %O`, content)
     // Don't throw error since a missing entry is probably better than crashing the program
     return {}
@@ -69,13 +70,15 @@ const groupFieldByLocale = (fields, fieldName, entriesMap) => {
       fields[locale] = {}
     }
 
-    fields[locale][fieldName] = this.resolve(
-      fields[fieldName][locale],
-      entriesMap
-    )
+    fields[locale][fieldName] = resolve(fields[fieldName][locale], entriesMap)
     // remove un-grouped data
     delete fields[fieldName][locale]
   })
   // remove un-grouped data
   delete fields[fieldName]
+}
+
+module.exports = {
+  createEntriesMap,
+  resolve,
 }
