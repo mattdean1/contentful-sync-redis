@@ -5,7 +5,9 @@ const bluebird = require(`bluebird`)
 //Promisify Redis operations so now we can e.g. await client.getAsync
 bluebird.promisifyAll(redis.RedisClient.prototype)
 
-exports.createClient = url => new Redis(url)
+exports.createClient = function(url) {
+  return new Redis(url)
+}
 
 class Redis {
   constructor(url) {
