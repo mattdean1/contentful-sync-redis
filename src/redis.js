@@ -5,9 +5,7 @@ const bluebird = require(`bluebird`)
 //Promisify Redis operations so now we can e.g. await client.getAsync
 bluebird.promisifyAll(redis.RedisClient.prototype)
 
-exports.createClient = function(url) {
-  return new Redis(url)
-}
+exports.createClient = url => new Redis(url)
 
 class Redis {
   constructor(url) {
@@ -58,7 +56,7 @@ class Redis {
   async storeEntries(entries) {
     debug(`Storing %d entries`, entries.length)
     try {
-      return await Promise.all(entries.map(this.storeEntry))
+      return await Promise.all(entries.map(entry => this.storeEntry(entry)))
     } catch (err) {
       debug(`Error storing entries: %O`, entries)
       throw new Error(err)
@@ -67,7 +65,7 @@ class Redis {
   async removeEntries(entries) {
     debug(`Removing %d entries`, entries.length)
     try {
-      return await Promise.all(entries.map(this.removeEntry))
+      return await Promise.all(entries.map(entry => this.removeEntry(entry)))
     } catch (err) {
       debug(`Error removing entries: %O`, entries)
       throw new Error(err)
