@@ -1,17 +1,18 @@
 const debug = require(`debug`)(`contentful-sync-redis:contentful`)
-const { createClient } = require(`contentful`)
+const createContentfulClient = require(`contentful`).createClient
 
-const db = require(`./redis`)
+const createRedisClient = require(`./redis`).createClient
 const { resolve, createEntriesMap } = require(`./contentful-utils`)
 
-module.exports = class Contentful {
-  constructor(space, accessToken, host) {
-    this.client = createClient({
+module.exports = class ContentfulSyncRedis {
+  constructor({ space, token, contentfulHost, redisHost }) {
+    this.client = createContentfulClient({
       space,
-      accessToken,
+      token,
       resolveLinks: false,
-      host: host || `cdn.contentful.com`,
+      host: contentfulHost || `cdn.contentful.com`,
     })
+    this.db = createRedisClient(redisHost)
     this.syncToken = false
     this.lastResolvedContent = {
       content: false,
@@ -24,7 +25,7 @@ module.exports = class Contentful {
     debug(`Getting entries`)
     try {
       await this.sync()
-      return await db.getAllEntries()
+      return await this.db.getAllEntries()
     } catch (err) {
       debug(`Error getting entries: %s`, err)
       throw new Error(err)
@@ -52,8 +53,8 @@ module.exports = class Contentful {
       const { entries, deletedEntries } = clientSyncResponse
       // Use promise.all so these execute in parallel
       await Promise.all([
-        db.storeEntries(entries),
-        db.removeEntries(deletedEntries),
+        this.db.storeEntries(entries),
+        this.db.removeEntries(deletedEntries),
       ])
       return Promise.resolve()
     } catch (err) {

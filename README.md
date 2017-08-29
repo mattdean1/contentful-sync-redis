@@ -12,55 +12,73 @@ It keeps a copy of your Contentful space in Redis, using the [Contentful Sync AP
 
 The Contentful JS SDK is a only thin wrapper on top of their API, and it can be tedious to [implement the Sync API](https://www.contentful.com/developers/docs/javascript/tutorials/using-the-sync-api-with-js/) in every project.
 
-# Setup
-
-### Installation
+# Install
 
 ```
 npm install --save contentful-sync-redis
 ```
 
-###  Environment variables
-
-| Name      | Value                                    | Default                |
-| --------- | ---------------------------------------- | ---------------------- |
-| REDIS_URL | Redis URL                                | redis://localhost:6379 |
-|           |                                          |                        |
-| DEBUG     | See the [debug module](https://www.npmjs.com/package/debug) |                        |
-
-
 # Usage
+
+```javascript
+const ContentfulSyncRedis = require('contentful-sync-redis')
+const cf = new ContentfulSyncRedis({ space: 'space_id', token: 'access_token' })
+cf.getEntries()
+	.then(entries => cf.resolveReferences(entries))
+	.then(resolvedEntries => yourFunction(resolvedEntries))
+```
+
+# API
 
 ### Initialisation
 
+Initialise the module using the `new` operator, passing in the mandatory values for:
+
+ - Contentful space ID
+ - Contentful access token
+
+ Optionally, also pass in:
+
+  - Contentful API host
+     - Default: `cdn.contentful.com`
+- Redis URL
+  - Default: `redis://localhost:6379`
+
 ```javascript
-const Contentful = require(`contentful-sync-redis`)
+const ContentfulSyncRedis = require('contentful-sync-redis')
+const cf = new ContentfulSyncRedis({
+	space: 'string',
+	token: 'string',
+	contentfulHost: 'optionalString',
+	redisHost: 'optionalString',
+})
+```
 
-// host can be either preview.contentful.com or the default cdn.contentful.com
-// recommended to manage space_id and access_token via environment variables
-const cf = new Contentful(contentful_space_id, contentful_access_token[, host])
+### Synchronisation
 
-// perform the initial download of content
-cf.sync() //returns a promise
+Perform the initial download of content to Redis - it's often worth calling this just after initialisation
+
+```javascript
+cf.sync() // returns an empty promise
+```
+
+### Getting Entries
+
+Return all entries in the Contentful space, after making sure the cache is synced.
+
+You can use this without calling `sync()` beforehand.
+
+```javascript
+cf.getEntries() // returns a promise containing the entries
 ```
 
 
+### Resolving Links
 
-### Get Entries
-
-```javascript
-// return all entries in the contentful space, after making sure the cache is synced
-cf.getEntries() // returns a promise
-```
-
-
-
-### Resolve Links
+Dereferences links to other entries in your content and groups fields by locale.
 
 ```javascript
-// dereferences links to other entries in your content
-cf.getEntries()
-	.then(entries => cf.resolveReferences(entries))
+cf.resolveReferences(entries) // returns a promise containing the resolved entries
 ```
 
 e.g.
@@ -99,47 +117,42 @@ cf.resolveReferences([
 ])
 ```
 Returns a Promise which resolves to:
-```   
+```   javascript
 {
     "sys": { ... },
     "fields": {
-      "title": {
-        "en-US": "Home"
-      },
-      "summary": {
-        "en-US": "This is the homepage, it talks about the site "
-      },
-      "sections": {
-        "en-US": [
+			"en-US": {
+				"title": "Home",
+				"summary": "This is the homepage, it talks about the site ",
+				"sections": [
           {
             "sys": { ... },
             "fields": {
-              "title": {
-                "en-US": "About us"
-              },
-              "content": {
-                "en-US": "Made by Matt Dean and Sam Stenton"
-              }
+							"en-US": {
+								"title": "About us",
+								"content": "Made by Matt Dean"
+							}
             }
           },
           {
             "sys": { ... },
             "fields": {
-              "title": {
-                "en-US": "Introduction"
-              },
-              "content": {
-                "en-US": "Hi this is the search accelerator"
-              }
+							"en-US": {
+								"title": "Introduction",
+								"content": "Hi this is contentful-sync-redis"
+							}
             }
           }
         ]
-      }
+			}
     }
   },
 ```
 Where 'sections' is a multi-reference field
 
+###  Logging
+
+See the [debug module](https://www.npmjs.com/package/debug). Use the package name (`contentful-sync-redis`) as the string in the environment variable.
 
 
 # Release Map
@@ -155,6 +168,11 @@ Where 'sections' is a multi-reference field
  - [x] Tests using Mocha
  - [x] CI integration using Travis
  - [x] Contribution guidelines
+
+### 0.3
+
+ - [x] Group fields by locale
+ - [x] No longer configure Redis client using an environment variable
 
 ### 1.0
 

@@ -1,6 +1,6 @@
 const assert = require(`assert`) // node.js core module
 
-const ClassInstance = require(`../`)
+const ContentfulSyncRedis = require(`../`)
 const contentfulUtils = require(`../src/contentful-utils`)
 const resolveTestData = require(`./resolve-test-data`)
 
@@ -10,7 +10,10 @@ describe(`Package`, () => {
 
     beforeEach(() => {
       // Create a new Rectangle object before every test.
-      instance = new ClassInstance(`fakestring`, `fakestring`)
+      instance = new ContentfulSyncRedis({
+        space: `fakestring`,
+        token: `fakestring`,
+      })
     })
 
     it(`should have a sync method`, () => {
