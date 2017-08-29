@@ -75,7 +75,7 @@ cf.getEntries() // returns a promise containing the entries
 
 ### Resolving Links
 
-Dereferences links to other entries in your content and groups fields by locale.
+Dereferences links to other entries in your content and groups fields by locale. Pass in an array of entries.
 
 ```javascript
 cf.resolveReferences(entries) // returns a promise containing the resolved entries
@@ -85,69 +85,71 @@ e.g.
 
 ```javascript
 cf.resolveReferences([
-    {
-    "sys": { ... },
-    "fields": {
-      "title": {
-        "en-US": "Home"
-      },
-      "summary": {
-        "en-US": "This is the homepage, it talks about the site "
-      },
-      "sections": {
-        "en-US": [
-          {
-            "sys": {
-              "type": "Link",
-              "linkType": "Entry",
-              "id": "6Gz0vGZmAoSgOSAM2Ks4gW"
-            }
-          },
-          {
-            "sys": {
-              "type": "Link",
-              "linkType": "Entry",
-              "id": "S9n6QORFyEeKEUaGS2Ym4"
-            }
-          }
-        ]
-      }
-    }
-  },
+	{
+	  sys: { ... },
+	  fields: {
+	    title: {
+	      "en-US": `Home`,
+	    },
+	    summary: {
+	      "en-US": `This is the homepage, it talks about the site `,
+	    },
+	    sections: {
+	      "en-US": [
+	        {
+	          sys: {
+	            type: `Link`,
+	            linkType: `Entry`,
+	            id: `6Gz0vGZmAoSgOSAM2Ks4gW`,
+	          },
+	        },
+	        {
+	          sys: {
+	            type: `Link`,
+	            linkType: `Entry`,
+	            id: `S9n6QORFyEeKEUaGS2Ym4`,
+	          },
+	        },
+	      ],
+	    },
+	  },
+	}
 ])
 ```
+
 Returns a Promise which resolves to:
-```   javascript
+```javascript
 {
-    "sys": { ... },
-    "fields": {
-			"en-US": {
-				"title": "Home",
-				"summary": "This is the homepage, it talks about the site ",
-				"sections": [
-          {
-            "sys": { ... },
-            "fields": {
-							"en-US": {
-								"title": "About us",
-								"content": "Made by Matt Dean"
-							}
-            }
+  sys: { ... },
+  fields: {
+    "en-US": {
+      title: `Home`,
+      summary: `This is the homepage, it talks about the site `,
+      sections: [
+        {
+          sys: { ... },
+          fields: {
+            "en-US": {
+              title: `About us`,
+              content: `Made by Matt Dean`,
+            },
           },
-          {
-            "sys": { ... },
-            "fields": {
-							"en-US": {
-								"title": "Introduction",
-								"content": "Hi this is contentful-sync-redis"
-							}
-            }
-          }
-        ]
-			}
-    }
+        },
+        {
+          sys: { ... },
+          fields: {
+            "en-US": {
+              title: `Introduction`,
+              content: `Hi this is contentful-sync-redis`,
+            },
+          },
+        },
+      ],
+    },
   },
+}
 ```
+
 Where 'sections' is a multi-reference field
 
 ###  Logging
