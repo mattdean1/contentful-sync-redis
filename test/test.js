@@ -27,7 +27,103 @@ describe(`Package`, () => {
     })
   })
 
-  describe(`Resolving references`, () => {
+  describe(`Resolving functionality`, () => {
+    it(`should return the same value when given a non-nested string`, () => {
+      const str = `string`
+      assert.equal(contentfulUtils.resolve(str), str)
+    })
+
+    it(`should return the same value when given a non-nested number`, () => {
+      const int = 5
+      assert.equal(contentfulUtils.resolve(int), int)
+    })
+
+    it(`should handle an array of values`, () => {
+      const array = [1, 2, 3, 4, 5]
+      assert.deepEqual(contentfulUtils.resolve(array), array)
+    })
+
+    it(`should group fields by locale`, () => {
+      const unresolvedEntry = {
+        sys: { type: `Entry` },
+        fields: {
+          field1: {
+            "en-US": `English1`,
+            "de-DE": `Deutsch1`,
+          },
+          field2: {
+            "en-US": `English2`,
+            "de-DE": `Deutsch2`,
+          },
+        },
+      }
+      const resolvedEntry = {
+        sys: { type: `Entry` },
+        fields: {
+          "en-US": {
+            field1: `English1`,
+            field2: `English2`,
+          },
+          "de-DE": {
+            field1: `Deutsch1`,
+            field2: `Deutsch2`,
+          },
+        },
+      }
+      assert.deepEqual(
+        contentfulUtils.resolve(unresolvedEntry, {}),
+        resolvedEntry
+      )
+    })
+
+    it(`should resolve a single reference to another entry`, () => {
+      // we include the locale here because a space will always have one
+      const unresolvedEntry = {
+        sys: { type: `Entry` },
+        fields: {
+          referenceField: {
+            "en-US": {
+              sys: {
+                type: `Link`,
+                linkType: `Entry`,
+                id: `6Gz0vGZmAoSgOSAM2Ks4gW`,
+              },
+            },
+          },
+        },
+      }
+      const entryMapping = {
+        "6Gz0vGZmAoSgOSAM2Ks4gW": {
+          sys: { type: `Entry` },
+          fields: {
+            field1: {
+              "en-US": `value`,
+            },
+          },
+        },
+      }
+      const resolvedEntry = {
+        sys: { type: `Entry` },
+        fields: {
+          "en-US": {
+            referenceField: {
+              sys: { type: `Entry` },
+              fields: {
+                "en-US": {
+                  field1: `value`,
+                },
+              },
+            },
+          },
+        },
+      }
+
+      assert.deepEqual(
+        contentfulUtils.resolve(unresolvedEntry, entryMapping),
+        resolvedEntry
+      )
+    })
+
     it(`should map test data correctly`, () => {
       assert.deepEqual(
         contentfulUtils.createEntriesMap(resolveTestData.raw),

@@ -27,7 +27,7 @@ exports.resolve = (content, entriesMap) => {
       })
       return content
     }
-    // Content is a reference
+    // Content is a reference to another entry
     if (
       content.sys &&
       content.sys.type === `Link` &&
@@ -64,10 +64,11 @@ const fields = {
 const groupFieldByLocale = (fields, fieldName, entriesMap) => {
   const locales = Object.keys(fields[fieldName])
   locales.forEach(locale => {
-    // content.fields.locale.fieldName
     if (!fields[locale]) {
+      // initialise locale object property if it doesn't already exist
       fields[locale] = {}
     }
+
     fields[locale][fieldName] = this.resolve(
       fields[fieldName][locale],
       entriesMap
