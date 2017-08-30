@@ -20,15 +20,12 @@ const resolve = (content, entriesMap) => {
       return content.map(x => resolve(x, entriesMap))
     }
     // content is an entry with fields
-    if (content.sys && content.sys.type === `Entry`) {
-      const fieldNames = Object.keys(content.fields)
-      fieldNames.forEach(fieldName => {
-        groupFieldByLocale(content.fields, fieldName, entriesMap)
-      })
-      return content
+    if (content && content.sys && content.sys.type === `Entry`) {
+      return groupFieldsByLocale(content, entriesMap)
     }
     // Content is a reference to another entry
     if (
+      content &&
       content.sys &&
       content.sys.type === `Link` &&
       content.sys.linkType === `Entry`
@@ -62,20 +59,28 @@ const fields = {
   }
 }
 */
-const groupFieldByLocale = (fields, fieldName, entriesMap) => {
-  const locales = Object.keys(fields[fieldName])
-  locales.forEach(locale => {
-    if (!fields[locale]) {
-      // initialise locale object property if it doesn't already exist
-      fields[locale] = {}
-    }
-
-    fields[locale][fieldName] = resolve(fields[fieldName][locale], entriesMap)
-    // remove un-grouped data
-    delete fields[fieldName][locale]
-  })
-  // remove un-grouped data
-  delete fields[fieldName]
+const groupFieldsByLocale = (entry, entriesMap) => {
+  try {
+    const newEntry = { sys: entry.sys, fields: {} }
+    Object.keys(entry.fields).forEach(fieldName => {
+      const locales = Object.keys(entry.fields[fieldName])
+      locales.forEach(localeName => {
+        // add locale property if it doesn't exist already
+        if (!newEntry.fields[localeName]) {
+          newEntry.fields[localeName] = {}
+        }
+        newEntry.fields[localeName][fieldName] = resolve(
+          entry.fields[fieldName][localeName],
+          entriesMap
+        )
+      })
+    })
+    return newEntry
+  } catch (err) {
+    debug(`Error grouping fields by locale: %s`, err)
+    debug(`Entry: %O`, entry)
+    return entry
+  }
 }
 
 module.exports = {
