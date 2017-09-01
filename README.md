@@ -6,7 +6,8 @@
 
 #### What does this package do?
 
-It keeps a copy of your Contentful space in Redis, using the [Contentful Sync API](https://www.contentful.com/developers/docs/concepts/sync/).
+- Keeps a copy of your Contentful space in Redis, using the [Contentful Sync API](https://www.contentful.com/developers/docs/concepts/sync/).
+- Provides a helper function to resolve [Links](https://www.contentful.com/developers/docs/concepts/links/) inside your entries.
 
 #### Why wouldn't I use the Contentful Javascript SDK?
 
@@ -24,8 +25,7 @@ npm install --save contentful-sync-redis
 const ContentfulSyncRedis = require('contentful-sync-redis')
 const cf = new ContentfulSyncRedis({ space: 'space_id', token: 'access_token' })
 cf.getEntries()
-	.then(entries => cf.resolveReferences(entries))
-	.then(resolvedEntries => yourFunction(resolvedEntries))
+	.then(entries => yourFunction(entries))
 ```
 
 # API
@@ -72,6 +72,17 @@ You can use this without calling `sync()` beforehand.
 cf.getEntries() // returns a promise containing the entries
 ```
 
+
+
+### Get Entries and Resolve Links
+
+A wrapper function that calls `getEntries` and then `resolveReferences`.
+
+```javascript
+cf.getResolvedEntries(entries) // returns a promise containing the resolved entries
+```
+
+### 
 
 ### Resolving Links
 
