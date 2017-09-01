@@ -157,7 +157,7 @@ Where 'sections' is a multi-reference field
 See the [debug module](https://www.npmjs.com/package/debug). Use the package name (`contentful-sync-redis`) as the string in the environment variable.
 
 
-# Release Map
+# Release Map / Changelog
 
 ### MVP - 0.1
 
@@ -175,6 +175,10 @@ See the [debug module](https://www.npmjs.com/package/debug). Use the package nam
 
  - [x] Group fields by locale
  - [x] No longer configure Redis client using an environment variable
+
+### 0.4
+
+- [x] Add sugar function to get entries and resolve references with a single call
 
 ### 1.0
 

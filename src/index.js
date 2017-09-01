@@ -23,6 +23,12 @@ module.exports = class ContentfulSyncRedis {
     }
   }
 
+  // Sugar function to get and resolve entries with one call
+  async getResolvedEntries() {
+    const entries = await this.getEntries()
+    return this.resolveReferences(entries)
+  }
+
   // Get all entries from cache (making sure cache is up to date via syncing first)
   async getEntries() {
     debug(`Getting entries`)
@@ -66,7 +72,7 @@ module.exports = class ContentfulSyncRedis {
     }
   }
 
-  // Resolve references to other entries in an array of contentful entries
+  // Resolve references to other entries in an array of contentful entries, and group fields by locale
   async resolveReferences(entries) {
     try {
       const stringifiedContent = JSON.stringify(entries)

@@ -28,6 +28,10 @@ describe(`Package`, () => {
       assert.equal(typeof instance, `object`)
       assert.equal(typeof instance.resolveReferences, `function`)
     })
+    it(`should have a getResolvedEntries method`, () => {
+      assert.equal(typeof instance, `object`)
+      assert.equal(typeof instance.getResolvedEntries, `function`)
+    })
   })
 
   describe(`Resolving functionality`, () => {
