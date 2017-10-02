@@ -5,6 +5,41 @@ exports.raw = [
         sys: {
           type: `Link`,
           linkType: `Space`,
+          id: `im67laxslxvo`,
+        },
+      },
+      type: `Asset`,
+      id: `4jM3XYHBu0UACAIMeAgA86`,
+      revision: 2,
+      createdAt: `2017-09-13T14:15:08.218Z`,
+      updatedAt: `2017-10-02T09:49:40.790Z`,
+    },
+    fields: {
+      title: {
+        "en-US": `AWS S3`,
+      },
+      file: {
+        "en-US": {
+          url: `//images.contentful.com/im67laxslxvo/4jM3XYHBu0UACAIMeAgA86/87f6d5a43d86495abe84e4ec5012ad66/AWS_S3__1_.png`,
+          details: {
+            size: 30165,
+            image: {
+              width: 445,
+              height: 250,
+            },
+          },
+          fileName: `AWS S3 (1).png`,
+          contentType: `image/png`,
+        },
+      },
+    },
+  },
+  {
+    sys: {
+      space: {
+        sys: {
+          type: `Link`,
+          linkType: `Space`,
           id: `bddk9mu5quk7`,
         },
       },
@@ -230,6 +265,41 @@ exports.raw = [
 ]
 
 exports.mapped = {
+  "4jM3XYHBu0UACAIMeAgA86": {
+    sys: {
+      space: {
+        sys: {
+          type: `Link`,
+          linkType: `Space`,
+          id: `im67laxslxvo`,
+        },
+      },
+      type: `Asset`,
+      id: `4jM3XYHBu0UACAIMeAgA86`,
+      revision: 2,
+      createdAt: `2017-09-13T14:15:08.218Z`,
+      updatedAt: `2017-10-02T09:49:40.790Z`,
+    },
+    fields: {
+      title: {
+        "en-US": `AWS S3`,
+      },
+      file: {
+        "en-US": {
+          url: `//images.contentful.com/im67laxslxvo/4jM3XYHBu0UACAIMeAgA86/87f6d5a43d86495abe84e4ec5012ad66/AWS_S3__1_.png`,
+          details: {
+            size: 30165,
+            image: {
+              width: 445,
+              height: 250,
+            },
+          },
+          fileName: `AWS S3 (1).png`,
+          contentType: `image/png`,
+        },
+      },
+    },
+  },
   "6Gz0vGZmAoSgOSAM2Ks4gW": {
     sys: {
       space: {
@@ -461,6 +531,39 @@ exports.mapped = {
 }
 
 exports.resolved = [
+  {
+    sys: {
+      space: {
+        sys: {
+          type: `Link`,
+          linkType: `Space`,
+          id: `im67laxslxvo`,
+        },
+      },
+      type: `Asset`,
+      id: `4jM3XYHBu0UACAIMeAgA86`,
+      revision: 2,
+      createdAt: `2017-09-13T14:15:08.218Z`,
+      updatedAt: `2017-10-02T09:49:40.790Z`,
+    },
+    fields: {
+      "en-US": {
+        title: `AWS S3`,
+        file: {
+          url: `//images.contentful.com/im67laxslxvo/4jM3XYHBu0UACAIMeAgA86/87f6d5a43d86495abe84e4ec5012ad66/AWS_S3__1_.png`,
+          details: {
+            size: 30165,
+            image: {
+              width: 445,
+              height: 250,
+            },
+          },
+          fileName: `AWS S3 (1).png`,
+          contentType: `image/png`,
+        },
+      },
+    },
+  },
   {
     sys: {
       space: {

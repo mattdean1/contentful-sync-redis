@@ -48,7 +48,7 @@ module.exports = class ContentfulSyncRedis {
       // Filter by entries only on initial sync since later syncs don't support it
       let query = this.syncToken
         ? { nextSyncToken: this.syncToken }
-        : { initial: true, type: `Entry` }
+        : { initial: true }
       query.resolveLinks = false
       const clientSyncResponse = await this.client.sync(query)
 
@@ -59,11 +59,19 @@ module.exports = class ContentfulSyncRedis {
 
       debug(`Sync updates found, updating cache...`)
       this.syncToken = clientSyncResponse.nextSyncToken
-      const { entries, deletedEntries } = clientSyncResponse
+
+      const {
+        entries,
+        deletedEntries,
+        assets,
+        deletedAssets,
+      } = clientSyncResponse
+
       // Use promise.all so these execute in parallel
       await Promise.all([
-        this.db.storeEntries(entries),
-        this.db.removeEntries(deletedEntries),
+        // Assets are treated the same way as entries so combine them
+        this.db.storeEntries(entries.concat(assets)),
+        this.db.removeEntries(deletedEntries.concat(deletedAssets)),
       ])
       return Promise.resolve()
     } catch (err) {

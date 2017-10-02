@@ -20,7 +20,11 @@ const resolve = (content, entriesMap) => {
       return content.map(x => resolve(x, entriesMap))
     }
     // content is an entry with fields
-    if (content && content.sys && content.sys.type === `Entry`) {
+    if (
+      content &&
+      content.sys &&
+      (content.sys.type === `Entry` || content.sys.type === `Asset`)
+    ) {
       return groupFieldsByLocale(content, entriesMap)
     }
     // Content is a reference to another entry
@@ -32,6 +36,17 @@ const resolve = (content, entriesMap) => {
     ) {
       return resolve(entriesMap[content.sys.id], entriesMap)
     }
+
+    //Content is an asset
+    if (
+      content &&
+      content.sys &&
+      content.sys.type === `Link` &&
+      content.sys.linkType === `Asset`
+    ) {
+      return resolve(entriesMap[content.sys.id], entriesMap)
+    }
+
     // content is a value
     return content
   } catch (err) {
@@ -69,6 +84,7 @@ const groupFieldsByLocale = (entry, entriesMap) => {
         if (!newEntry.fields[localeName]) {
           newEntry.fields[localeName] = {}
         }
+
         newEntry.fields[localeName][fieldName] = resolve(
           entry.fields[fieldName][localeName],
           entriesMap

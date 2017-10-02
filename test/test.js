@@ -137,6 +137,7 @@ describe(`Package`, () => {
         resolveTestData.mapped
       )
     })
+
     it(`should resolve test data correctly`, () => {
       const resolvedData = contentfulUtils.resolve(
         resolveTestData.raw,
