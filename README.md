@@ -82,11 +82,11 @@ A wrapper function that calls `getEntries` and then `resolveReferences`.
 cf.getResolvedEntries(entries) // returns a promise containing the resolved entries
 ```
 
-### 
+###
 
 ### Resolving Links
 
-Dereferences links to other entries in your content and groups fields by locale. Pass in an array of entries.
+Dereferences links to other entries/assets in your content and groups fields by locale. Pass in an array of entries.
 
 ```javascript
 cf.resolveReferences(entries) // returns a promise containing the resolved entries
@@ -162,6 +162,31 @@ Returns a Promise which resolves to:
 ```
 
 Where 'sections' is a multi-reference field
+
+### Assets
+Contentful doesn't resolve assets when they are linked to from an entry. To deal with this we download asset objects in the `sync` method. These are stored as entries in Redis and resolved in the same way as any other link. An asset object will look like the following once resolved:
+
+```
+{
+  fields: {
+    "en-US": {
+      title: `AWS S3`,
+      file: {
+        url: `//images.contentful.com/im67laxslxvo/4jM3XYHBusdsd0UACAIMeAgA86/87f6d5a43d8asd6495abe84e4ec5012ad66/AWS_S3.png`,
+        details: {
+          size: 30165,
+          image: {
+            width: 445,
+            height: 250,
+          },
+        },
+        fileName: `AWS S3.png`,
+        contentType: `image/png`,
+      },
+    },
+  },
+}
+```
 
 ###  Logging
 
