@@ -164,7 +164,7 @@ Returns a Promise which resolves to:
 Where 'sections' is a multi-reference field
 
 ### Assets
-Contentful doesn't resolve assets when they are linked to from an entry. To deal with this we download asset objects in the `sync` method. These are stored as entries in Redis and resolved in the same way as any other link. An asset object will look like the following once resolved:
+Contentful doesn't resolve assets when they are linked to from an entry. To deal with this we download asset objects in the `sync` method. These are stored in Redis and resolved in the same way as any other link. An asset object will look like the following once resolved:
 
 ```
 {
@@ -187,6 +187,8 @@ Contentful doesn't resolve assets when they are linked to from an entry. To deal
   },
 }
 ```
+
+If you just want to get all the assets stored simply use the `getAssets` method.
 
 ###  Logging
 

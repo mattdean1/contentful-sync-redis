@@ -41,6 +41,29 @@ module.exports = class ContentfulSyncRedis {
     }
   }
 
+  async getAssets() {
+    debug(`Getting assets`)
+    try {
+      await this.sync()
+      return await this.db.getAllAssets()
+    } catch (err) {
+      debug(`Error getting assets: %s`, err)
+      throw new Error(err)
+    }
+  }
+
+  //Get assets and entries together
+  async getAll() {
+    debug(`Getting all`)
+    try {
+      await this.sync()
+      return await this.db.getAll()
+    } catch (err) {
+      debug(`Error getting assets: %s`, err)
+      throw new Error(err)
+    }
+  }
+
   // Called before geting data from CF, ensures cache is up to date
   async sync() {
     debug(`Syncing`)
@@ -69,9 +92,10 @@ module.exports = class ContentfulSyncRedis {
 
       // Use promise.all so these execute in parallel
       await Promise.all([
-        // Assets are treated the same way as entries so combine them
-        this.db.storeEntries(entries.concat(assets)),
-        this.db.removeEntries(deletedEntries.concat(deletedAssets)),
+        this.db.storeEntries(entries),
+        this.db.storeAssets(assets),
+        this.db.removeEntries(deletedEntries),
+        this.db.removeEntries(deletedAssets),
       ])
       return Promise.resolve()
     } catch (err) {
@@ -91,7 +115,10 @@ module.exports = class ContentfulSyncRedis {
       }
 
       debug(`Resolving entries...`)
-      const entriesMap = createEntriesMap(entries)
+      // Get assets here so we can resolve links to them but not include them in the returned array
+      const assets = await this.db.getAllAssets()
+      const entriesMap = createEntriesMap(entries.concat(assets))
+
       const resolvedEntries = resolve(entries, entriesMap)
       this.lastResolvedContent = {
         content: stringifiedContent,
