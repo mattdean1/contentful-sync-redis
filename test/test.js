@@ -24,6 +24,14 @@ describe(`Package`, () => {
       assert.equal(typeof instance, `object`)
       assert.equal(typeof instance.getEntries, `function`)
     })
+    it(`should have a getAssets method`, () => {
+      assert.equal(typeof instance, `object`)
+      assert.equal(typeof instance.getAssets, `function`)
+    })
+    it(`should have a getAll method`, () => {
+      assert.equal(typeof instance, `object`)
+      assert.equal(typeof instance.getAll, `function`)
+    })
     it(`should have a resolveReferences method`, () => {
       assert.equal(typeof instance, `object`)
       assert.equal(typeof instance.resolveReferences, `function`)
